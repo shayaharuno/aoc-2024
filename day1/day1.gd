@@ -21,12 +21,9 @@ static func solution_of(_input: StringName) -> String:
 		result_data.append(abs(data_a[i] - data_b[i]))
 		result += result_data[i]
 
-	#Second Part
+	# Second Part
 	var sim_score: int = 0
-
-	var _sim_score: int = 0
 	for i: int in range(data_a.size()):
-		_sim_score = data_b.count(data_a[i]) * data_a[i]
-		sim_score += _sim_score
+		sim_score += data_b.count(data_a[i]) * data_a[i]
 
 	return "%d (%s)" % [result, sim_score]

@@ -1,7 +1,7 @@
 class_name D2 extends RefCounted
 
 static func solution_of(_input: StringName) -> String:
-	#First Part
+	# First Part
 	var step_max: int = 3
 	var unsafe_count: int = 0
 	var raw_data: Array[String] = Utils.read_file(_input)
@@ -29,5 +29,8 @@ static func solution_of(_input: StringName) -> String:
 						result_data[i] = "Not Safe"
 						unsafe_count+=1
 						break
+	# Second Part
+	print(raw_data)
+	var dampened_result: int = 0
 
-	return "%d (%s)" % [(result_data.size()-unsafe_count), "TBD"]
+	return "%d (%s)" % [(result_data.size()-unsafe_count), dampened_result]
