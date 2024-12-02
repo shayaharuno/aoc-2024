@@ -4,12 +4,10 @@ static func solution_of(_input: StringName) -> String:
 	# First Part
 	var step_max: int = 3
 	var unsafe_count: int = 0
+	var safe_count_dampened: int = 0
 	var raw_data: Array[String] = Utils.read_file(_input)
 	var split_data: Array[PackedStringArray] = Utils.split_data(raw_data, " ")
-	var result_data: Array[String]
-
-	result_data.resize(split_data.size())
-	result_data.fill("Safe")
+	var unsafe_data: Array[PackedStringArray]
 
 	for i: int in range(split_data.size()):
 		var diff_sign: int = 1
@@ -21,16 +19,47 @@ static func solution_of(_input: StringName) -> String:
 				var new_sign = sign(diff)
 				if j == 1: diff_sign = new_sign
 				if abs(diff) > step_max:
-					result_data[i] = "Not Safe"
-					unsafe_count+=1
+					unsafe_data.append(split_data[i])
+					unsafe_count += 1
 					break
 				if j > 1:
 					if new_sign != diff_sign:
-						result_data[i] = "Not Safe"
-						unsafe_count+=1
+						unsafe_data.append(split_data[i])
+						unsafe_count += 1
 						break
-	# Second Part
-	print(raw_data)
-	var dampened_result: int = 0
 
-	return "%d (%s)" % [(result_data.size()-unsafe_count), dampened_result]
+
+	# Second Part
+	for i: int in range(unsafe_data.size()):
+		var line_len: int = unsafe_data[i].size()
+		print("Current List: %s" % unsafe_data[i])
+		for j: int in range(line_len):
+			var temp_arr: PackedStringArray
+			temp_arr = unsafe_data[i].duplicate()
+			temp_arr.remove_at(j)
+			print(temp_arr)
+
+			var diff_sign: int = 1
+			for k: int in range(temp_arr.size()):
+				if k > 0:
+					var a: int = int(temp_arr[k-1])
+					var b: int = int(temp_arr[k])
+					var diff: int = a - b
+					var new_sign = sign(diff)
+					if k == 1: diff_sign = new_sign
+					if abs(diff) > step_max:
+						break
+					if k > 1:
+						if new_sign != diff_sign:
+							break
+				safe_count_dampened += 1
+				print("Arr: %s" % temp_arr + " counts as safe")
+
+		
+		#print(dampened_data)
+		#print(dampened_count)
+
+
+		
+
+	return "%d (%s)" % [(split_data.size()-unsafe_count), (safe_count_dampened)]
