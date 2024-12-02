@@ -1,10 +1,8 @@
 class_name D1 extends RefCounted
 
-static func result_of(_input: StringName) -> int:
-	var result: int = 0
-	var sim_score: int = 0
-
+static func solution_of(_input: StringName) -> String:
 	# First Part
+	var result: int = 0
 	var raw_data: Array[String] = Utils.read_file(_input)
 	var split_data: Array[PackedStringArray] = Utils.split_data(raw_data, "   ")
 
@@ -24,11 +22,11 @@ static func result_of(_input: StringName) -> int:
 		result += result_data[i]
 
 	#Second Part
+	var sim_score: int = 0
+
 	var _sim_score: int = 0
 	for i: int in range(data_a.size()):
 		_sim_score = data_b.count(data_a[i]) * data_a[i]
 		sim_score += _sim_score
 
-
-	#return sim_score
-	return result
+	return "%d (%s)" % [result, sim_score]

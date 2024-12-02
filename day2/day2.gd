@@ -1,15 +1,13 @@
 class_name D2 extends RefCounted
 
-static func result_of(_input: StringName) -> int:
+static func solution_of(_input: StringName) -> String:
+	#First Part
 	var step_max: int = 3
 	var unsafe_count: int = 0
-
-	var raw_data: Array[String]
-	var split_data: Array[PackedStringArray]
+	var raw_data: Array[String] = Utils.read_file(_input)
+	var split_data: Array[PackedStringArray] = Utils.split_data(raw_data, " ")
 	var result_data: Array[String]
 
-	raw_data = Utils.read_file(_input)
-	split_data = Utils.split_data(raw_data, " ")
 	result_data.resize(split_data.size())
 	result_data.fill("Safe")
 
@@ -32,5 +30,4 @@ static func result_of(_input: StringName) -> int:
 						unsafe_count+=1
 						break
 
-	return result_data.size()-unsafe_count
-
+	return "%d (%s)" % [(result_data.size()-unsafe_count), "TBD"]
