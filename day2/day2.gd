@@ -27,18 +27,15 @@ static func solution_of(_input: StringName) -> String:
 						unsafe_data.append(split_data[i])
 						unsafe_count += 1
 						break
-
-
+	
 	# Second Part
 	for i: int in range(unsafe_data.size()):
 		var line_len: int = unsafe_data[i].size()
-		print("Current List: %s" % unsafe_data[i])
 		for j: int in range(line_len):
 			var temp_arr: PackedStringArray
 			temp_arr = unsafe_data[i].duplicate()
 			temp_arr.remove_at(j)
-			print(temp_arr)
-
+			var skip: bool = false
 			var diff_sign: int = 1
 			for k: int in range(temp_arr.size()):
 				if k > 0:
@@ -48,18 +45,15 @@ static func solution_of(_input: StringName) -> String:
 					var new_sign = sign(diff)
 					if k == 1: diff_sign = new_sign
 					if abs(diff) > step_max:
+						skip = true
 						break
 					if k > 1:
 						if new_sign != diff_sign:
+							skip = true
 							break
+			if skip == false:
 				safe_count_dampened += 1
-				print("Arr: %s" % temp_arr + " counts as safe")
+				break;
 
-		
-		#print(dampened_data)
-		#print(dampened_count)
-
-
-		
-
-	return "%d (%s)" % [(split_data.size()-unsafe_count), (safe_count_dampened)]
+	var result: int = (split_data.size()-unsafe_count)
+	return "%d (%s)" % [result, result + safe_count_dampened]
