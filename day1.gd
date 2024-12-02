@@ -1,17 +1,15 @@
-extends Node
+class_name D1 extends RefCounted
 
-var val_size: int = 5
-var gap_size: int = 3
+static func result_of(_input: StringName) -> int:
+	var val_size: int = 5
+	var gap_size: int = 3
 
-var raw_data: Array[String]
-var int0_data: Array[int]
-var int1_data: Array[int]
-var result_data: Array[int]
-var data0: Array[int]
-var data1: Array[int]
+	var raw_data: Array[String]
+	var int0_data: Array[int]
+	var int1_data: Array[int]
+	var result_data: Array[int]
 
-func _ready() -> void:
-	raw_data = Utils.read_file("day1/input.txt")
+	raw_data = Utils.read_file(_input)
 
 	var result: int = 0
 	for i: int in range(raw_data.size()):
@@ -25,11 +23,10 @@ func _ready() -> void:
 		result_data.append(abs(int0_data[i] - int1_data[i]))
 		result += result_data[i]
 
-	print("Data Size: %s" % raw_data.size())
-	print("Result: %s" % result)
+	return result
 
 
-func combine_numbers(_input_string: String, _start_index: int, _val_size: int) -> int:
+static func combine_numbers(_input_string: String, _start_index: int, _val_size: int) -> int:
 	var output: String = ""
 
 	for i: int in range(_val_size):
