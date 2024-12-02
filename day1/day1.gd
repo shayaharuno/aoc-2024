@@ -11,7 +11,7 @@ var data0: Array[int]
 var data1: Array[int]
 
 func _ready() -> void:
-	read_file("day1/input.txt")
+	raw_data = Utils.read_file("day1/input.txt")
 
 	var result: int = 0
 	for i: int in range(raw_data.size()):
@@ -27,12 +27,6 @@ func _ready() -> void:
 
 	print("Data Size: %s" % raw_data.size())
 	print("Result: %s" % result)
-
-
-func read_file(filepath: StringName):
-	var file = FileAccess.open(filepath, FileAccess.READ)
-	while file.get_position() < file.get_length():
-		raw_data.append(file.get_line())
 
 
 func combine_numbers(_input_string: String, _start_index: int, _val_size: int) -> int:
